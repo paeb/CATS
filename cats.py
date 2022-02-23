@@ -7,6 +7,8 @@ from datetime import datetime
 # Phase 1 #
 ###########
 
+# lambda is an anonymous function
+# a higher order function means we can take a function as a parameter
 
 def choose(paragraphs, select, k):
   """Return the Kth paragraph from PARAGRAPHS for which SELECT called on the
@@ -28,9 +30,10 @@ def choose(paragraphs, select, k):
   ''
   """
   # BEGIN PROBLEM 1
-  ...
-  # END PROBLEM 1
 
+   = filter(s,ps) -> returns a list where we check each element in a list, ps, with a function s
+  
+  # END PROBLEM 1
 
 def about(topic):
   """Return a select function that returns whether

@@ -30,9 +30,11 @@ def choose(paragraphs, select, k):
   ''
   """
   # BEGIN PROBLEM 1
-
-   = filter(s,ps) -> returns a list where we check each element in a list, ps, with a function s
-  
+  filtered_paragraphs = list(filter(select,paragraphs)) # -> returns a list where we check each element in a list, ps, with a function s
+  if (len(filtered_paragraphs) >= k):
+    return filtered_paragraphs[k]
+  else:
+    return ""
   # END PROBLEM 1
 
 def about(topic):

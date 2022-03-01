@@ -53,7 +53,19 @@ def about(topic):
   assert all([lower(x) == x for x in topic]), 'topics should be lowercase.'
 
   # BEGIN PROBLEM 2
-  ...
+  def foo(paragraphs):
+    paragraph = paragraphs.lower()
+    for i in topic:
+      ilower = i.lower()
+      if ilower in paragraph:
+        Loc = paragraph.find(ilower)
+        onEdge = False
+        if Loc == 0 or Loc + len(i) == int(len(paragraph - 1)):
+          onEdge = True
+        elif (paragraph[Loc - 1].isalpha() == False or onEdge) and (paragraph[Loc + len(i)].isalpha() == False or onEdge):
+          return True
+    return False
+  return foo
   # END PROBLEM 2
 
 
@@ -84,7 +96,29 @@ def accuracy(typed, reference):
   reference_words = split(reference)
 
   # BEGIN PROBLEM 3
-  ...
+  '''
+  Rules:
+  - Order matters ("a b c d" "b a c d" 50.0)
+  - Capitalization matters ("Cat" "cat" 0.0)
+  - A word must immediately be followed by the next in the list ("a b c d", "a d" 25.0)
+  - Tabs don't count as words ("a b \tc" , "a b c" 100.0)
+  - Punctuation matters ("cats.", "cats" 0.0) 
+  - The words must be in the exact order they were in the reference ("a b c d", "b c d" 0.0)
+  '''
+  
+  
+  count = 0
+  total = len(typed_words)
+  if total == 0:
+    total = 1
+  if typed_words == reference_words:
+    return 100.0
+  for i in range(len(typed_words)):
+    if i < len(reference_words):
+      if typed_words[i] == reference_words[i]:
+        count += 1
+  return 100 * (count / total)
+
   # END PROBLEM 3
 
 

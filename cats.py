@@ -2,6 +2,7 @@
 from utils import lower, split, remove_punctuation, lines_from_file
 from ucb import main, interact, trace
 from datetime import datetime
+import string
 
 ###########
 # Phase 1 #
@@ -53,9 +54,29 @@ def about(topic):
   assert all([lower(x) == x for x in topic]), 'topics should be lowercase.'
 
   # BEGIN PROBLEM 2
-  ...
-  # END PROBLEM 2
 
+  # it's taking in a paragraph, not paragraphs
+  # that's the issue
+  
+  def foo(paragraph, topic):
+    for word in topic:
+      if topic in paragraph.split():
+        return True
+    return False
+
+  def in_topic(paragraphs):
+    print(paragraphs)
+    print(type(paragraphs))
+    for paragraph in paragraphs: # each string in paragraphs
+      for word in topic: # word
+        print(word)
+        print(paragraph)
+        if word.lower() in paragraph.lower():
+          return True
+      return False
+  return in_topic
+
+  # END PROBLEM 2
 
 def accuracy(typed, reference):
   """Return the accuracy (percentage of words typed correctly) of TYPED

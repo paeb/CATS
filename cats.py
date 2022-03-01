@@ -164,7 +164,22 @@ def autocorrect(typed_word, word_list, diff_function, limit):
   'testing'
   """
   # BEGIN PROBLEM 5
-  ...
+  
+  wordDiffs = []
+  for i in range(len(word_list)):
+    wordDiffs.append((word_list[i], diff_function(typed_word, word_list[i], limit)))
+  closest = wordDiffs[0]
+  for i in wordDiffs:
+    if i[0] == typed_word:
+      return i[0]
+    elif i[1] < closest[1]:
+      closest = i
+  
+  if closest[1] <= limit:
+    return closest[0]
+  else:
+    return typed_word
+
   # END PROBLEM 5
 
 

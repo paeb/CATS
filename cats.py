@@ -54,43 +54,17 @@ def about(topic):
   assert all([lower(x) == x for x in topic]), 'topics should be lowercase.'
 
   # BEGIN PROBLEM 2
-<<<<<<< HEAD
-=======
-  def foo(paragraphs):
-    paragraph = paragraphs.lower()
-    for i in topic:
-      ilower = i.lower()
-      if ilower in paragraph:
-        Loc = paragraph.find(ilower)
-        onEdge = False
-        if Loc == 0 or Loc + len(i) == int(len(paragraph - 1)):
-          onEdge = True
-        elif (paragraph[Loc - 1].isalpha() == False or onEdge) and (paragraph[Loc + len(i)].isalpha() == False or onEdge):
-          return True
-    return False
-  return foo
-  # END PROBLEM 2
->>>>>>> 7b013c74a3d1b664df1c82b79a8bf5891ff980f0
 
-  # it's taking in a paragraph, not paragraphs
-  # that's the issue
-  
-  def foo(paragraph, topic):
-    for word in topic:
-      if topic in paragraph.split():
-        return True
-    return False
-
-  def in_topic(paragraphs):
-    print(paragraphs)
-    print(type(paragraphs))
-    for paragraph in paragraphs: # each string in paragraphs
+  def in_topic(paragraph):
+    print("DEBUG: " + paragraph)
+    paragraph = paragraph.split() # split the string into words
+    for p_word in paragraph: # each word in paragraph
+      print("DEBUG: " + p_word)
+      p_word = remove_punctuation(p_word)
       for word in topic: # word
-        print(word)
-        print(paragraph)
-        if word.lower() in paragraph.lower():
+        if word.lower() == p_word.lower():
           return True
-      return False
+    return False
   return in_topic
 
   # END PROBLEM 2
@@ -131,7 +105,6 @@ def accuracy(typed, reference):
   - Punctuation matters ("cats.", "cats" 0.0) 
   - The words must be in the exact order they were in the reference ("a b c d", "b c d" 0.0)
   '''
-  
   
   count = 0
   total = len(typed_words)

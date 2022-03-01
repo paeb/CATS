@@ -1,0 +1,5 @@
+.ok_history
+.ok_storage
+.DS_STORE
+__pycache__
+.vscode/

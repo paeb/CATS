@@ -206,7 +206,16 @@ def sphinx_swaps(start, goal, limit):
   5
   """
   # BEGIN PROBLEM 6
-  ...
+  def checkWords(word1, word2, count):
+    if len(word1) == 0 or len(word2) == 0 or count > limit:
+      diff = abs(len(word1) - len(word2))
+      return diff
+    elif word1[0] != word2[0]:
+      return 1 + checkWords(word1[1:], word2[1:], count + 1)
+    else: 
+      return checkWords(word1[1:], word2[1:], count)
+  
+  return checkWords(start, goal, 0)
   # END PROBLEM 6
 
 

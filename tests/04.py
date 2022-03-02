@@ -11,10 +11,11 @@ test = {
           >>> wpm("a b c", 20)
           3.0
           >>> wpm("", 10)
-          0.0
+          c724dae4a49e254e46460a5c2ce9f821
+          # locked
           """,
           'hidden': False,
-          'locked': False,
+          'locked': True,
           'multiline': False
         },
         {

@@ -136,7 +136,7 @@ def wpm(typed, elapsed):
   assert elapsed > 0, 'Elapsed time must be positive'
 
   # BEGIN PROBLEM 4
-  return (len(typed) / elapsed) * 60
+  return float(len(typed) / 5 / elapsed) * 60
   # END PROBLEM 4
 
 
@@ -164,7 +164,20 @@ def autocorrect(typed_word, word_list, diff_function, limit):
   'testing'
   """
   # BEGIN PROBLEM 5
-  ...
+  wordDiffs = []
+  for i in range(len(word_list)):
+    wordDiffs.append((word_list[i], diff_function(typed_word, word_list[i], limit)))
+  closest = wordDiffs[0]
+  for i in wordDiffs:
+    if i[0] == typed_word:
+      return i[0]
+    elif i[1] < closest[1]:
+      closest = i
+  
+  if closest[1] <= limit:
+    return closest[0]
+  else:
+    return typed_word
   # END PROBLEM 5
 
 
@@ -191,7 +204,16 @@ def sphinx_swaps(start, goal, limit):
   5
   """
   # BEGIN PROBLEM 6
-  ...
+  def checkWords(word1, word2, count):
+    if len(word1) == 0 or len(word2) == 0 or count > limit:
+      diff = abs(len(word1) - len(word2))
+      return diff
+    elif word1[0] != word2[0]:
+      return 1 + checkWords(word1[1:], word2[1:], count + 1)
+    else: 
+      return checkWords(word1[1:], word2[1:], count)
+  
+  return checkWords(start, goal, 0)
   # END PROBLEM 6
 
 
@@ -213,7 +235,21 @@ def minimum_mewtations(start, goal, limit):
   3
   """
   # BEGIN PROBLEM 7
-  ...
+  '''
+  There are three different operations to be done here:
+  - Adding a letter to start
+  - Removing a letter from start
+  - Changing a letter in start
+  '''
+  
+  chainLocs = []
+  for i in range(len(goal)):
+    for j in range(len(goal[i:])):
+      chain = goal[i:j + 1]
+      Loc = start.find(chain)
+      if Loc != -1:
+        chainLocs.append((chain, Loc))
+  
   # END PROBLEM 7
 
 

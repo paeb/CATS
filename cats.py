@@ -237,7 +237,23 @@ def minimum_mewtations(start, goal, limit):
   3
   """
   # BEGIN PROBLEM 7
-  ...
+  '''
+  There are three different operations to be done here:
+  - Adding a letter to start
+  - Removing a letter from start
+  - Changing a letter in start
+  '''
+  
+  chainLocs = []
+  for i in range(len(goal)):
+    for j in range(len(goal[i:])):
+      chain = goal[i:j + 1]
+      Loc = start.find(chain)
+      if Loc != -1:
+        chainLocs.append((chain, Loc))
+  
+  
+  
   # END PROBLEM 7
 
 

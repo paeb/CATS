@@ -164,6 +164,7 @@ def autocorrect(typed_word, word_list, diff_function, limit):
   'testing'
   """
   # BEGIN PROBLEM 5
+  
   wordDiffs = []
   for i in range(len(word_list)):
     wordDiffs.append((word_list[i], diff_function(typed_word, word_list[i], limit)))
@@ -178,6 +179,7 @@ def autocorrect(typed_word, word_list, diff_function, limit):
     return closest[0]
   else:
     return typed_word
+
   # END PROBLEM 5
 
 
@@ -241,7 +243,7 @@ def minimum_mewtations(start, goal, limit):
   - Removing a letter from start
   - Changing a letter in start
   '''
-  
+  '''
   chainLocs = []
   for i in range(len(goal)):
     for j in range(len(goal[i:])):
@@ -249,7 +251,16 @@ def minimum_mewtations(start, goal, limit):
       Loc = start.find(chain)
       if Loc != -1:
         chainLocs.append((chain, Loc))
-  
+  '''
+  def checkLetter(word1, word2, count):
+    if len(word2) > 0:
+      firstLetter = word2[0]
+    else: 
+      return 0
+    if count > limit:
+      return 5
+    
+  return checkLetter(start, goal, 0)
   # END PROBLEM 7
 
 

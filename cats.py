@@ -240,7 +240,7 @@ def minimum_mewtations(start, goal, limit):
   - Removing a letter from start
   - Changing a letter in start
   '''
-  
+  '''
   chainLocs = []
   for i in range(len(goal)):
     for j in range(len(goal[i:])):
@@ -248,7 +248,16 @@ def minimum_mewtations(start, goal, limit):
       Loc = start.find(chain)
       if Loc != -1:
         chainLocs.append((chain, Loc))
-  
+  '''
+  def checkLetter(word1, word2, count):
+    if len(word2) > 0:
+      firstLetter = word2[0]
+    else: 
+      return 0
+    if count > limit:
+      return 5
+    
+  return checkLetter(start, goal, 0)
   # END PROBLEM 7
 
 

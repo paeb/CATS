@@ -253,12 +253,44 @@ def minimum_mewtations(start, goal, limit):
         chainLocs.append((chain, Loc))
   '''
   def checkLetter(word1, word2, count):
-    if len(word2) > 0:
-      firstLetter = word2[0]
-    else: 
-      return 0
     if count > limit:
-      return 5
+      return count + 5
+    if len(word2) > 1:
+      firstLetter = word2[0]
+      secondLetter = word2[1]
+      if firstLetter in word1:
+        Loc = word1.find(firstLetter)
+        nextLoc = word1.find(secondLetter)
+        if nextLoc == Loc + 1:
+          return checkLetter(word1[nextLoc:], word2[1:], count)
+        elif nextLoc > Loc + 1:
+          removed = 0
+          for i in word1[Loc:nextLoc]:
+            if i not in word2[2:]:
+              removed += 1
+              word1 = word1[:word1.find(i)] + word1[word1.find(i) + 1:]
+          if word1[Loc + 1] in word2[2:]:
+            return checkLetter(word2[1] + word1[1:], word2[1:]. count + removed + 1)
+          elif word1[Loc + 1] == word2[1]:
+            return checkLetter(word1[1:], word2[1:], count + removed)
+        elif nextLoc < Loc:
+          if word1[Loc + 1] in word2[2:]:
+            return checkLetter(word2[1] + word1[1:], word2[1:], count + Loc + 1)
+          else: 
+            return checkLetter(word2[1] + word1[2:], word2[1:], count + Loc + 1)
+      elif firstLetter not in word1:
+        if word1[0] in word2[1:]:
+          return checkLetter(word1, word2[1:], count + 1)
+        elif word1[0] == firstLetter:
+          return checkLetter(word1[1:], word2[1:], count)
+        else:
+          return checkLetter(word1[1:], word2[1:], count + 1)
+    elif len(word2) == 1:
+
+    else: 
+      return count + len(word1)
+    
+
     
   return checkLetter(start, goal, 0)
   # END PROBLEM 7

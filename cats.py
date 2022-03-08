@@ -243,58 +243,24 @@ def minimum_mewtations(start, goal, limit):
   - Removing a letter from start
   - Changing a letter in start
   '''
-  '''
-  chainLocs = []
-  for i in range(len(goal)):
-    for j in range(len(goal[i:])):
-      chain = goal[i:j + 1]
-      Loc = start.find(chain)
-      if Loc != -1:
-        chainLocs.append((chain, Loc))
-  '''
-  def checkLetter(word1, word2, count):
+  
+  def checkLetter(start, goal, count):
+    if start == goal:
+      return 0
     if count > limit:
-      return count + 5
-    if len(word2) > 1:
-      firstLetter = word2[0]
-      secondLetter = word2[1]
-      if firstLetter in word1:
-        Loc = word1.find(firstLetter)
-        nextLoc = word1.find(secondLetter)
-        if nextLoc == Loc + 1:
-          return checkLetter(word1[nextLoc:], word2[1:], count)
-        elif nextLoc > Loc + 1:
-          removed = 0
-          for i in word1[Loc:nextLoc]:
-            if i not in word2[2:]:
-              removed += 1
-              word1 = word1[:word1.find(i)] + word1[word1.find(i) + 1:]
-          if word1[Loc + 1] in word2[2:]:
-            return checkLetter(word2[1] + word1[1:], word2[1:]. count + removed + 1)
-          elif word1[Loc + 1] == word2[1]:
-            return checkLetter(word1[1:], word2[1:], count + removed)
-        elif nextLoc < Loc:
-          if word1[Loc + 1] in word2[2:]:
-            return checkLetter(word2[1] + word1[1:], word2[1:], count + Loc + 1)
-          else: 
-            return checkLetter(word2[1] + word1[2:], word2[1:], count + Loc + 1)
-      elif firstLetter not in word1:
-        if word1[0] in word2[1:]:
-          return checkLetter(word1, word2[1:], count + 1)
-        elif word1[0] == firstLetter:
-          return checkLetter(word1[1:], word2[1:], count)
-        else:
-          return checkLetter(word1[1:], word2[1:], count + 1)
-    elif len(word2) == 1:
-
-    else: 
-      return count + len(word1)
-    
-
+      return limit
+    if len(start) == 0 or len(goal) == 0:
+      return abs(len(start) - len(goal))
+    if start[0] == goal[0]:
+      return checkLetter(start[1:], goal[1:], count)
+    else:
+      add = checkLetter(start, goal[1:], count + 1)
+      remove = checkLetter(start[1:], goal, count + 1)
+      substitute = checkLetter(start[1:], goal[1:], count + 1)
+      return min(add, remove, substitute) + 1
     
   return checkLetter(start, goal, 0)
   # END PROBLEM 7
-
 
 # STOP! #
 # YOU DO NOT NEED TO EDIT ANY CODE BEYOND THIS POINT! #

@@ -107,17 +107,22 @@ def accuracy(typed, reference):
   - Punctuation matters ("cats.", "cats" 0.0) 
   - The words must be in the exact order they were in the reference ("a b c d", "b c d" 0.0)
   '''
-  
+  # These are counting variables for keeping track of how many are correct 
+  # compared to the total words
   count = 0
   total = len(typed_words)
+  # This is in order to make sure we don't return something divided by 0
   if total == 0:
     total = 1
+  # Checks if the two are the same before running the rest
   if typed_words == reference_words:
     return 100.0
+  # Loops through typed_words while checking that it's within the length og reference_words
   for i in range(len(typed_words)):
     if i < len(reference_words):
       if typed_words[i] == reference_words[i]:
         count += 1
+  # returns the percentage of typed words that are correct
   return 100 * (count / total)
 
   # END PROBLEM 3
@@ -240,22 +245,40 @@ def minimum_mewtations(start, goal, limit):
   - Removing a letter from start
   - Changing a letter in start
   '''
-  
+  # Recursive function 
   def checkLetter(start, goal, count):
+    # Returns a 0 if the two words are the same
     if start == goal:
       return 0
+    # This function starts with a 0 for count, 
+    # and it adds a one every time it does something
+    # This if statement checks if you've gone over the limit,
+    # and returns the limit if you've gone over.
     if count > limit:
       return limit
+    # This checks if either word in the recursive function 
+    # has run out of letters, returning the amount of remaining letters
+    # in the remaining word.
     if len(start) == 0 or len(goal) == 0:
       return abs(len(start) - len(goal))
+    # This checks if the start letters are the same, returning
+    # the the next letters of both start and goal without increasing count
     if start[0] == goal[0]:
       return checkLetter(start[1:], goal[1:], count)
+    # This is where most of the work gets done
     else:
+      # These three are the three actions possible to take in modifying start and goal
+      # add returns goal[1:] because it adds the letter to start and removes it while
+      # also removing it from goal
       add = checkLetter(start, goal[1:], count + 1)
+      # remove returns start[1:] because the it's only removing a letter from start, not goal
       remove = checkLetter(start[1:], goal, count + 1)
+      # substitute returns start[1:] and goal[1:] because the letter in start is changed and then removed
       substitute = checkLetter(start[1:], goal[1:], count + 1)
+      # This sort of creates a "tree," where every function calls another three recursive function,
+      # exploring all the possibilities and returning the path through the tree that has the least value.
       return min(add, remove, substitute) + 1
-    
+  # plugs in the start, goal, and 0 for count and returns the result from checkLetter
   return checkLetter(start, goal, 0)
   # END PROBLEM 7
 

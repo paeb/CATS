@@ -4,6 +4,8 @@ from ucb import main, interact, trace
 from datetime import datetime
 import string
 
+# Contributors: Harry, Brandon
+
 ###########
 # Phase 1 #
 ###########
@@ -139,11 +141,9 @@ def wpm(typed, elapsed):
   return float(len(typed) / 5 / elapsed) * 60
   # END PROBLEM 4
 
-
 ###########
 # Phase 2 #
 ###########
-
 
 def autocorrect(typed_word, word_list, diff_function, limit):
   """Returns the element of WORD_LIST that has the smallest difference
@@ -164,24 +164,23 @@ def autocorrect(typed_word, word_list, diff_function, limit):
   'testing'
   """
   # BEGIN PROBLEM 5
-  
-  wordDiffs = []
-  for i in range(len(word_list)):
-    wordDiffs.append((word_list[i], diff_function(typed_word, word_list[i], limit)))
-  closest = wordDiffs[0]
-  for i in wordDiffs:
-    if i[0] == typed_word:
+
+  wordDiffs = [] # list to hold the word differences
+  for i in range(len(word_list)): # for every word in the word list
+    wordDiffs.append((word_list[i], diff_function(typed_word, word_list[i], limit))) # add the word (in the word list) and its difference from the typed word
+  closest = wordDiffs[0] # choose one of the differences to start
+  for i in wordDiffs: # for each tuple in the list: (word, difference) pair
+    if i[0] == typed_word: # if the word is the typed word, just return it
       return i[0]
-    elif i[1] < closest[1]:
-      closest = i
+    elif i[1] < closest[1]: # if this word is closer to the typed word
+      closest = i # set the new closest word
   
-  if closest[1] <= limit:
+  if closest[1] <= limit: # if the closest word is less than the limit
     return closest[0]
   else:
     return typed_word
 
   # END PROBLEM 5
-
 
 def sphinx_swaps(start, goal, limit):
   """A diff function for autocorrect that determines how many letters
@@ -205,19 +204,17 @@ def sphinx_swaps(start, goal, limit):
   >>> sphinx_swaps("rose", "hello", big_limit)   # Substitute: r->h, o->e, s->l, e->l, length difference of 1.
   5
   """
-  # BEGIN PROBLEM 6
-  def checkWords(word1, word2, count):
-    if len(word1) == 0 or len(word2) == 0 or count > limit:
-      diff = abs(len(word1) - len(word2))
-      return diff
-    elif word1[0] != word2[0]:
-      return 1 + checkWords(word1[1:], word2[1:], count + 1)
-    else: 
-      return checkWords(word1[1:], word2[1:], count)
-  
-  return checkWords(start, goal, 0)
-  # END PROBLEM 6
 
+  # BEGIN PROBLEM 6
+  if len(start) == 0 or len(goal) == 0: # Base case (either of the words has length 0)
+    return abs(len(start)-len(goal))
+  elif limit < 0: # If we've exceeded the limit
+    return 1 # To return 1 larger than the limit
+  elif start[0] != goal[0]: # Check the first character
+    return 1 + sphinx_swaps(start[1:],goal[1:],limit-1)
+  else:
+    return sphinx_swaps(start[1:],goal[1:],limit)
+  # END PROBLEM 6
 
 def minimum_mewtations(start, goal, limit):
   """A diff function that computes the edit distance from START to GOAL.
